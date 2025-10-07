@@ -1,93 +1,174 @@
 # COMANDOS BÁSICOS DE GIT
 # Taller – Git & GitHub (flujo individual, sin ramas)
 Nombre:
-Matricula:
+Matrícula:
 
-============================================================
-0) AYUDA RÁPIDA
-============================================================
-git --version                 # Ver versión de Git
-git help <comando>            # Ayuda de un comando (p.ej. git help commit)
-<comando> -h                  # Ayuda corta (p.ej. git commit -h)
+====================================================================
+0) AYUDA RÁPIDA (para cuando te trabes)
+====================================================================
+git --version
+    Qué hace: Muestra la versión instalada de Git (sirve para confirmar que está instalado).
+    Ejemplo:  git --version  →  git version 2.46.0
 
-============================================================
-1) CONFIGURACIÓN INICIAL (una sola vez por equipo)
-============================================================
+git help <comando>
+    Qué hace: Abre la ayuda oficial del comando (manual completo).
+    Ejemplo:  git help commit
+
+<comando> -h
+    Qué hace: Muestra la ayuda corta de un comando (opciones más comunes).
+    Ejemplo:  git commit -h
+
+====================================================================
+1) CONFIGURACIÓN INICIAL (una sola vez por equipo/PC)
+====================================================================
 git config --global user.name  "Tu Nombre"
+    Qué hace: Define el nombre del autor que aparecerá en tus commits.
+    Cuándo usar: La primera vez que uses Git en esta computadora.
+
 git config --global user.email "tu_correo@ejemplo.com"
-git config --global init.defaultBranch main     # Rama por defecto como 'main'
-git config --list                               # Ver configuración
+    Qué hace: Define el correo del autor que aparecerá en tus commits.
+    Nota: Usa el correo que también usarás en GitHub para asociar tus commits.
 
-============================================================
+git config --global init.defaultBranch main
+    Qué hace: Hace que la rama inicial se llame 'main' en vez de 'master'.
+
+git config --list
+    Qué hace: Muestra la configuración actual (útil para verificar lo anterior).
+
+====================================================================
 2) CREAR / ENTRAR A UN PROYECTO
-============================================================
+====================================================================
 mkdir mi_proyecto
+    Qué hace: Crea una carpeta en tu sistema de archivos.
 cd mi_proyecto
-git init                                         # Inicializa repositorio (crea .git)
+    Qué hace: Entra a la carpeta creada.
 
-============================================================
+git init
+    Qué hace: Convierte la carpeta actual en un repositorio Git (crea la carpeta oculta .git).
+    Resultado: A partir de aquí Git puede registrar versiones de tus archivos.
+
+Sugerencia: Crea un archivo inicial (por ejemplo README.md) para poder hacer tu primer commit.
+    Ejemplo (Mac/Linux): echo "# Mi proyecto" > README.md
+    Ejemplo (Windows PowerShell): echo "# Mi proyecto" > README.md
+
+====================================================================
 3) ESTADO Y SEGUIMIENTO DE ARCHIVOS
-============================================================
-git status                                       # Ver estado del repo
-git add <archivo>                                # Añadir archivo al "staging"
-git add .                                        # Añadir todos los cambios
-git restore --staged <archivo>                   # Quitar del "staging" (si te equivocaste)
+====================================================================
+git status
+    Qué hace: Muestra el estado del repositorio (archivos nuevos, modificados, listos para commit).
+    Cuándo usar: Muy seguido. Te dice qué paso sigue (add/commit).
 
-============================================================
+git add <archivo>
+    Qué hace: Pasa cambios del "working directory" al "staging area" (prepararlos para commit).
+    Ejemplo:  git add README.md
+
+git add .
+    Qué hace: Añade TODOS los cambios detectados (nuevos y modificados) del directorio actual.
+    Precaución: Revisa 'git status' antes de usarlo para no añadir archivos no deseados.
+
+git restore --staged <archivo>
+    Qué hace: Quita un archivo del staging (lo “desprepara” para commit).
+    Útil cuando: Hiciste 'git add' por error sobre un archivo que no querías commitear aún.
+
+Tip: Estados comunes de un archivo en Git
+    - untracked: existe en tu carpeta, pero Git aún no lo controla (recién creado).
+    - modified: ya estaba controlado y ahora tiene cambios sin preparar (sin 'add').
+    - staged: cambios ya preparados para el próximo commit (después de 'add').
+
+====================================================================
 4) CONFIRMAR CAMBIOS (COMMITS)
-============================================================
-git commit -m "Mensaje breve y descriptivo"      # Crear un commit
-git log                                          # Ver historial completo
-git log --oneline                                # Historial compacto
-git show <hash>                                  # Ver detalles de un commit específico
+====================================================================
+git commit -m "Mensaje breve y descriptivo"
+    Qué hace: Guarda una “foto” de los cambios preparados en el historial.
+    Buenas prácticas: Mensajes en imperativo y cortos. Ej: "Agrega README inicial".
 
-============================================================
+git log
+    Qué hace: Muestra el historial completo de commits (autor, fecha, mensaje).
+    Navegación: q para salir de la vista del log.
+
+git log --oneline
+    Qué hace: Muestra el historial en una línea por commit (más compacto).
+
+git show <hash>
+    Qué hace: Muestra detalles de un commit específico (diff, autor, fecha).
+    Ejemplo:  git show a1b2c3d
+
+====================================================================
 5) VER DIFERENCIAS
-============================================================
-git diff                                         # Ver diferencias no preparadas (working vs staging)
-git diff --staged                                # Ver lo que está por confirmarse (staging vs último commit)
+====================================================================
+git diff
+    Qué hace: Muestra diferencias entre tus archivos modificados y el último commit.
+    Útil para: Revisar qué cambiaste ANTES de preparar (add) o confirmar (commit).
 
-============================================================
+git diff --staged
+    Qué hace: Muestra lo que está en staging (lo que se va a commitear).
+
+====================================================================
 6) CONECTAR CON GITHUB (HTTPS)
-============================================================
+====================================================================
 # 6.1 Clonar un repositorio existente (descargarlo)
 git clone https://github.com/USUARIO/REPO.git
+    Qué hace: Descarga una copia completa de un repo remoto (archivos + historial).
 cd REPO
+    Entra a la carpeta clonada.
 
 # 6.2 Agregar un remoto a un repo ya existente en tu máquina
 git remote add origin https://github.com/USUARIO/REPO.git
-git remote -v                                    # Verifica remotos
+    Qué hace: Registra la URL del repositorio remoto con el alias 'origin'.
+git remote -v
+    Qué hace: Lista los remotos configurados (para verificar).
 
 # 6.3 Subir cambios (primera vez con upstream)
 git push -u origin main
-# Luego normalmente:
+    Qué hace: Sube tu rama 'main' al remoto 'origin' y deja enlazado el seguimiento.
+Luego normalmente:
 git push
+    Qué hace: Sube nuevos commits a la rama remota enlazada.
+    Nota: Si GitHub pide contraseña y tienes 2FA, usa un Personal Access Token como “password”.
 
-# 6.4 Traer cambios del remoto
-git pull                                         # Equivalente a fetch + merge
-git fetch                                        # Trae referencias sin fusionar
-git merge origin/main                            # Fusiona manualmente lo traído
+# 6.4 Traer cambios del remoto (mantente sincronizado)
+git pull
+    Qué hace: Hace 'fetch' + 'merge' automático de la rama remota en tu rama local.
+    Cuándo usar: Al empezar a trabajar, para traer cambios recientes del remoto.
+git fetch
+    Qué hace: Trae referencias remotas SIN fusionar (solo descarga).
+git merge origin/main
+    Qué hace: Fusiona manualmente en tu rama actual los cambios descargados de origin/main.
 
-============================================================
+====================================================================
 7) IGNORAR ARCHIVOS (opcional recomendado)
-============================================================
-# Crea .gitignore y añade patrones; ejemplos:
-# *.log
-# *.tmp
-# .DS_Store
-# __pycache__/
+====================================================================
+Crea un archivo .gitignore para evitar subir archivos innecesarios o sensibles.
+Ejemplos de patrones:
+    *.log
+    *.tmp
+    .DS_Store
+    __pycache__/
 
-============================================================
+Cómo usar:
+    1) Crea .gitignore en la raíz del repo.
+    2) Añade patrones línea por línea.
+    3) 'git add .gitignore' y 'git commit -m "Añade .gitignore"'
+
+====================================================================
 8) RECUPERAR / DESCARTAR (USO CON CUIDADO)
-============================================================
-git restore <archivo>                            # Revertir cambios no confirmados en working directory
-git checkout -- <archivo>                        # (equivalente clásico)
-git reset --hard                                 # Vuelve todo al último commit (peligroso: pierde cambios no guardados)
+====================================================================
+git restore <archivo>
+    Qué hace: Revierte cambios NO confirmados en tu working directory (recupera la versión del último commit).
 
-============================================================
+git checkout -- <archivo>   (forma clásica equivalente a restore)
+    Qué hace: También restaura la versión del archivo a la del último commit.
+
+git reset --hard
+    Qué hace: Vuelve TODO el repo al último commit y DESCARTA cambios no confirmados.
+    PELIGRO: Perderás cambios que no estén en un commit. Úsalo con cautela.
+
+====================================================================
 9) BUENAS PRÁCTICAS BREVES
-============================================================
+====================================================================
 - Haz commits pequeños y con mensajes claros.
-- Ejecuta `git status` con frecuencia.
-- Sincroniza seguido: `git pull` al empezar, `git push` al terminar.
-- No subas datos sensibles (tokens, contraseñas, .env).
+- Ejecuta 'git status' frecuentemente para saber en qué estado estás.
+- Sincroniza seguido: 'git pull' al empezar, 'git push' al terminar.
+- No subas datos sensibles (tokens, contraseñas, .env, bases de datos).
+- Usa '.gitignore' para excluir archivos temporales o generados.
+- Lee el mensaje de error completo: suele decirte exactamente qué hacer.
