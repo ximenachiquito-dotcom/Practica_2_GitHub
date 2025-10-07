@@ -3,9 +3,9 @@
 **Objetivo:**  
 Completar el ciclo básico con Git y GitHub:
 1) Clonar el repo del profesor,
-2) editar un archivo,
-3) confirmar cambios (commit) y
-4) subirlos a **tu propio** repositorio en GitHub.
+2) Editar un archivo,
+3) Confirmar cambios (commit)
+4) Subirlos a **tu propio** repositorio en GitHub.
 
 ---
 
