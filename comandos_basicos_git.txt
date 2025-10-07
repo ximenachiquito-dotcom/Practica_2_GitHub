@@ -1,0 +1,91 @@
+# COMANDOS BÁSICOS DE GIT
+# Taller – Git & GitHub (flujo individual, sin ramas)
+
+============================================================
+0) AYUDA RÁPIDA
+============================================================
+git --version                 # Ver versión de Git
+git help <comando>            # Ayuda de un comando (p.ej. git help commit)
+<comando> -h                  # Ayuda corta (p.ej. git commit -h)
+
+============================================================
+1) CONFIGURACIÓN INICIAL (una sola vez por equipo)
+============================================================
+git config --global user.name  "Tu Nombre"
+git config --global user.email "tu_correo@ejemplo.com"
+git config --global init.defaultBranch main     # Rama por defecto como 'main'
+git config --list                               # Ver configuración
+
+============================================================
+2) CREAR / ENTRAR A UN PROYECTO
+============================================================
+mkdir mi_proyecto
+cd mi_proyecto
+git init                                         # Inicializa repositorio (crea .git)
+
+============================================================
+3) ESTADO Y SEGUIMIENTO DE ARCHIVOS
+============================================================
+git status                                       # Ver estado del repo
+git add <archivo>                                # Añadir archivo al "staging"
+git add .                                        # Añadir todos los cambios
+git restore --staged <archivo>                   # Quitar del "staging" (si te equivocaste)
+
+============================================================
+4) CONFIRMAR CAMBIOS (COMMITS)
+============================================================
+git commit -m "Mensaje breve y descriptivo"      # Crear un commit
+git log                                          # Ver historial completo
+git log --oneline                                # Historial compacto
+git show <hash>                                  # Ver detalles de un commit específico
+
+============================================================
+5) VER DIFERENCIAS
+============================================================
+git diff                                         # Ver diferencias no preparadas (working vs staging)
+git diff --staged                                # Ver lo que está por confirmarse (staging vs último commit)
+
+============================================================
+6) CONECTAR CON GITHUB (HTTPS)
+============================================================
+# 6.1 Clonar un repositorio existente (descargarlo)
+git clone https://github.com/USUARIO/REPO.git
+cd REPO
+
+# 6.2 Agregar un remoto a un repo ya existente en tu máquina
+git remote add origin https://github.com/USUARIO/REPO.git
+git remote -v                                    # Verifica remotos
+
+# 6.3 Subir cambios (primera vez con upstream)
+git push -u origin main
+# Luego normalmente:
+git push
+
+# 6.4 Traer cambios del remoto
+git pull                                         # Equivalente a fetch + merge
+git fetch                                        # Trae referencias sin fusionar
+git merge origin/main                            # Fusiona manualmente lo traído
+
+============================================================
+7) IGNORAR ARCHIVOS (opcional recomendado)
+============================================================
+# Crea .gitignore y añade patrones; ejemplos:
+# *.log
+# *.tmp
+# .DS_Store
+# __pycache__/
+
+============================================================
+8) RECUPERAR / DESCARTAR (USO CON CUIDADO)
+============================================================
+git restore <archivo>                            # Revertir cambios no confirmados en working directory
+git checkout -- <archivo>                        # (equivalente clásico)
+git reset --hard                                 # Vuelve todo al último commit (peligroso: pierde cambios no guardados)
+
+============================================================
+9) BUENAS PRÁCTICAS BREVES
+============================================================
+- Haz commits pequeños y con mensajes claros.
+- Ejecuta `git status` con frecuencia.
+- Sincroniza seguido: `git pull` al empezar, `git push` al terminar.
+- No subas datos sensibles (tokens, contraseñas, .env).
