@@ -1,7 +1,7 @@
 # COMANDOS BÁSICOS DE GIT
 # Taller – Git & GitHub (flujo individual, sin ramas)
-Nombre:
-Matrícula:
+Nombre: Ximena Chiquito Viramontes
+Matrícula: 2242041669
 
 ====================================================================
 0) AYUDA RÁPIDA (para cuando te trabes)
