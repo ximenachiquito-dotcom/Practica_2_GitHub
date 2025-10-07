@@ -1,5 +1,7 @@
 # COMANDOS BÁSICOS DE GIT
 # Taller – Git & GitHub (flujo individual, sin ramas)
+Nombre:
+Matricula:
 
 ============================================================
 0) AYUDA RÁPIDA
